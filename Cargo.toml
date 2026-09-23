@@ -1,0 +1,41 @@
+[package]
+name = "nxm-docs-mcp"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT OR Apache-2.0"
+description = "A small, dependency-light MCP server that converts documents between PDF and Markdown."
+repository = "https://github.com/dangranaz/nxm-docs-mcp"
+authors = ["Daniele Oddo"]
+keywords = ["mcp", "pdf", "markdown", "converter", "cli"]
+categories = ["command-line-utilities", "text-processing"]
+
+[[bin]]
+name = "nxm-docs-mcp"
+path = "src/main.rs"
+
+[dependencies]
+# PDF text extraction
+lopdf = "0.34"
+# Markdown parsing / rendering
+pulldown-cmark = "0.12"
+# Serialization (JSON-RPC messages)
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Error handling
+anyhow = "1"
+# Typst engine for native PDF export
+typst = "0.15"
+typst-pdf = "0.15"
+typst-kit = { version = "0.15", features = ["scan-fonts", "embedded-fonts", "datetime"] }
+typst-assets = "0.15"
+typst-library = "0.15"
+ecow = "0.2"
+base64 = "0.22"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
